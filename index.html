@@ -11,6 +11,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
+<script data-goatcounter="https://twil1ghtalt.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+
 <style>
   :root{
     --paper:#faf2e6;
@@ -351,7 +353,7 @@
         projects I keep going (like the L4D2 cheater database), my Steam library and the
         Discord server — with actual detail on each, not just a link.</p>
         <div class="statline">
-          <div class="s"><b id="viewCount">—</b><span>views</span></div>
+          <div class="s"><b id="viewCount">—</b><span>visitors</span></div>
           <div class="s"><b>2</b><span>mods released</span></div>
           <div class="s"><b>♥</b><span>monika's #1 fan</span></div>
           <div class="s"><b>∞</b><span>poems written</span></div>
@@ -541,6 +543,7 @@ the receipts. Everything else ends up in short clips.</p>
   </div>
   <p class="fine">autosaved · save_02.dat</p>
   <p class="fine">page built with a little AI help · the mods, catches and links are mine ♥</p>
+  <p class="fine">visits counted with goatcounter · no cookies, no personal data</p>
 </footer>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -795,11 +798,39 @@ the receipts. Everything else ends up in short clips.</p>
   updatePanel();
   if (musicPref === "on") playTrack(0);
 
+  const GC_SITE = "https://twil1ghtalt.goatcounter.com";
+  const viewCountEl = document.getElementById('viewCount');
+  const localPreview = location.protocol === 'file:' ||
+    ['localhost', '127.0.0.1', '0.0.0.0', '::1', ''].indexOf(location.hostname) > -1;
+
+  function loadViewCount(){
+    // count.js knows the exact path it recorded; fall back to the URL if it hasn't loaded
+    const ready = window.goatcounter && window.goatcounter.get_data;
+    const path = ready ? window.goatcounter.get_data().p : location.pathname;
+    fetch(GC_SITE + '/counter/' + encodeURIComponent(path) + '.json')
+      .then((r) => r.ok ? r.json() : Promise.reject(r.status))
+      .then((data) => {
+        viewCountEl.textContent = (data && data.count) || '—';
+        viewCountEl.title = 'visits counted with GoatCounter — no cookies';
+      })
+      .catch(() => {
+        viewCountEl.textContent = '—';
+        viewCountEl.title = 'count unavailable';
+      });
+  }
+
   try {
-    let n = parseInt(localStorage.getItem('ddlc-views') || '0', 10) + 1;
-    localStorage.setItem('ddlc-views', String(n));
-    document.getElementById('viewCount').textContent = n;
-  } catch(e){ document.getElementById('viewCount').textContent = '?'; }
+    if (localPreview) {
+      viewCountEl.title = 'counted on the live site';
+    } else {
+      let waited = 0;
+      (function waitForCounter(){
+        if (window.goatcounter && window.goatcounter.get_data) return loadViewCount();
+        if (waited < 3000) { waited += 150; return void setTimeout(waitForCounter, 150); }
+        loadViewCount();
+      })();
+    }
+  } catch(e){ viewCountEl.textContent = '—'; }
 
   const lines = [
     "you came to see what I've been up to since last time.",
