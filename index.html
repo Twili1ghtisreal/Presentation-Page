@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Twilight.dev — journal</title>
+<meta name="description" content="Mods, videos, Steam, Discord, code and the cheater database — a club journal.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💚</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:#faf2e6;
+    --paper-alt:#f5ecdd;
+    --paper-line: rgba(201,56,102,.09);
+    --panel:#fffdf9;
+    --ink:#2e1b22;
+    --ink-soft:#8a6a76;
+    --rose:#ef6d94;
+    --rose-deep:#c93866;
+    --gold:#d9a94f;
+    --lav:#a98fd1;
+    --sage:#7fa088;
+    --tape:#f3d9c9;
+    --corrupt:#ff2b4e;
+    --edge: rgba(46,27,34,.16);
+  }
+  [data-theme="dark"]{
+    --paper:#170e12; --paper-alt:#1c1116; --paper-line: rgba(239,109,148,.08); --panel:#221420;
+    --ink:#f3e3e9; --ink-soft:#b891a0; --rose:#ff8fb0; --rose-deep:#ff6e9d;
+    --gold:#e8c27a; --lav:#c3aee6; --sage:#93b89c; --tape:#3a2a2c; --corrupt:#ff4d6d; --edge: rgba(255,255,255,.14);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#170e12; --paper-alt:#1c1116; --paper-line: rgba(239,109,148,.08); --panel:#221420;
+      --ink:#f3e3e9; --ink-soft:#b891a0; --rose:#ff8fb0; --rose-deep:#ff6e9d;
+      --gold:#e8c27a; --lav:#c3aee6; --sage:#93b89c; --tape:#3a2a2c; --corrupt:#ff4d6d; --edge: rgba(255,255,255,.14);
+    }
+  }
+
+  :root[data-accent="green"]{
+    --paper:#edf6ee; --paper-alt:#e3f0e6; --paper-line: rgba(46,125,80,.10); --panel:#fbfefb;
+    --rose:#4caf7d; --rose-deep:#2e7d4f; --tape:#d7ebd9;
+  }
+  [data-theme="dark"][data-accent="green"]{
+    --paper:#0f1712; --paper-alt:#131d17; --paper-line: rgba(87,199,138,.08); --panel:#17221c;
+    --ink:#e2f2e8; --ink-soft:#8fb8a0; --rose:#5fcd90; --rose-deep:#8fe2b0;
+    --tape:#24332a; --edge: rgba(255,255,255,.13);
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html{ scroll-behavior:smooth; scroll-padding-top: 64px; }
+
+  body{
+    margin:0; color:var(--ink); font-family:'Space Mono', monospace;
+    background: var(--paper);
+    padding-bottom: env(safe-area-inset-bottom,0px);
+    position:relative; overflow-x:hidden;
+  }
+
+  canvas#fx{ position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+  .scan{ position:fixed; inset:0; z-index:2; pointer-events:none;
+    background: repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,.02) 3px 4px); opacity:.5; }
+
+  a{ color:inherit; }
+  .inner{ max-width:920px; margin:0 auto; padding:0 22px; position:relative; z-index:3; }
+
+  nav.toc{
+    position:sticky; top:0; z-index:20;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--edge);
+    padding-top: env(safe-area-inset-top,0px);
+  }
+  .toc-inner{ max-width:920px; margin:0 auto; padding:12px 22px; display:flex; align-items:center; gap:14px; overflow-x:auto; scrollbar-width:none; }
+  .toc-inner::-webkit-scrollbar{ display:none; }
+  .toc-brand{ font-family:'Caveat', cursive; font-weight:700; font-size:1.3rem; color:var(--rose-deep); flex:0 0 auto; }
+  .toc-links{ display:flex; gap:4px; flex:1; }
+  .toc-links a{
+    flex:0 0 auto; font-size:.68rem; letter-spacing:.05em; text-decoration:none; color:var(--ink-soft);
+    padding:6px 10px; border:1px solid transparent; white-space:nowrap; transition: color .15s ease, border-color .15s ease;
+  }
+  .toc-links a:hover, .toc-links a:focus-visible{ color:var(--rose-deep); border-color:var(--edge); }
+  .toc-actions{ display:flex; gap:6px; flex:0 0 auto; }
+  .icon-btn{
+    width:28px; height:28px; display:flex; align-items:center; justify-content:center;
+    background:transparent; border:1px solid var(--edge); color:var(--ink-soft); cursor:pointer;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  .icon-btn:hover{ color:var(--rose-deep); border-color:var(--rose-deep); }
+  .icon-btn:focus-visible{ outline:2px solid var(--rose-deep); outline-offset:2px; }
+  .icon-btn svg{ width:13px; height:13px; }
+  #accentToggle[aria-pressed="true"]{ color:var(--rose-deep); border-color:var(--rose-deep); }
+
+  .music-panel{ position:absolute; top:calc(100% + 8px); right:16px; z-index:30; width:216px; padding:14px;
+    background:var(--panel); border:1px solid var(--edge); box-shadow:0 16px 34px -14px rgba(0,0,0,.6); }
+  .music-now{ display:flex; flex-direction:column; gap:3px; margin-bottom:12px; }
+  .music-label{ font-size:.58rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
+  .music-now b{ font-size:.84rem; line-height:1.35; }
+  .music-count{ font-size:.64rem; color:var(--ink-soft); }
+  .music-controls{ display:flex; gap:6px; }
+  .mbtn{ flex:1; height:32px; display:flex; align-items:center; justify-content:center; font:inherit; font-size:.78rem;
+    background:transparent; border:1px solid var(--edge); color:var(--ink-soft); cursor:pointer;
+    transition:color .15s ease, border-color .15s ease, background .15s ease; }
+  .mbtn:hover{ color:var(--rose-deep); border-color:var(--rose-deep); }
+  .mbtn:focus-visible{ outline:2px solid var(--rose-deep); outline-offset:2px; }
+  .mbtn svg{ width:11px; height:11px; }
+  .mbtn-main{ color:var(--rose-deep); border-color:var(--rose-deep); }
+  .mbtn-main:hover{ background:var(--rose-deep); color:#fff; }
+  .mbtn .ico-pause{ display:none; }
+  .mbtn.playing .ico-play{ display:none; }
+  .mbtn.playing .ico-pause{ display:block; }
+  .music-vol{ display:flex; align-items:center; gap:9px; margin-top:12px; font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); }
+  .music-vol input{ flex:1; height:3px; accent-color:var(--rose-deep); cursor:pointer; }
+
+  .cover{ min-height: 82vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; padding: 40px 22px 60px; }
+  .cover .eyebrow{ font-size:.7rem; letter-spacing:.16em; color:var(--ink-soft); margin-bottom:6px; }
+  .cover h1{
+    font-family:'Caveat', cursive; font-weight:700; font-size: clamp(3.6rem, 13vw, 6.2rem);
+    line-height:.95; margin:0 0 6px; color:var(--rose-deep); position:relative; display:inline-block;
+  }
+  .cover h1 .g1, .cover h1 .g2{ position:absolute; inset:0; opacity:0; pointer-events:none; }
+  .cover h1.glitching .g1{ opacity:.7; color:var(--corrupt); transform: translate(-3px,1px); }
+  .cover h1.glitching .g2{ opacity:.6; color:#37c9e0; transform: translate(3px,-1px); }
+  .cover h1.glitching .base{ animation: shake .18s steps(2) 3; }
+  @keyframes shake{ 0%{transform:translate(0,0);} 50%{transform:translate(1px,-1px);} 100%{transform:translate(0,0);} }
+  .cover .tagline{ font-size:.95rem; color:var(--ink-soft); min-height:1.6em; max-width:44ch; }
+  .cover .tagline .caret{ display:inline-block; width:7px; height:1em; background:var(--rose-deep); vertical-align:-2px; animation: blink 1s step-end infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .scrollcue{ margin-top:34px; font-size:.68rem; letter-spacing:.1em; color:var(--ink-soft); display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .scrollcue .arrow{ width:14px; height:14px; border-right:1px solid var(--ink-soft); border-bottom:1px solid var(--ink-soft); transform:rotate(45deg); }
+
+  .chapter{ padding: 70px 0; border-top:1px solid var(--edge); }
+  .chapter.alt{ background: var(--paper-alt); }
+  .chapter-head{ margin-bottom:32px; }
+  .chapter-num{ font-size:.7rem; letter-spacing:.14em; color:var(--ink-soft); }
+  .chapter-title{ font-family:'Caveat', cursive; font-weight:700; font-size:2.3rem; color: var(--accent, var(--rose-deep)); margin:2px 0 0; }
+  .chapter-sub{ font-size:.82rem; color:var(--ink-soft); max-width:54ch; margin-top:8px; line-height:1.55; }
+  .chapter-sub a{ color:var(--rose-deep); text-decoration:none; border-bottom:1px dashed var(--edge); }
+  .chapter-sub a:hover{ border-color:var(--rose-deep); }
+
+  .about-grid{ display:grid; grid-template-columns: 160px 1fr; gap:30px; align-items:start; }
+  .polaroid{ background:#fff; padding:10px 10px 24px; width:150px; box-shadow: 0 14px 28px -14px rgba(46,27,34,.45); transform: rotate(-4deg); position:relative; }
+  [data-theme="dark"] .polaroid{ background:#2a1c22; }
+  .polaroid .shot{ width:100%; aspect-ratio:1/1; background: linear-gradient(160deg, var(--rose), var(--gold)); display:flex; align-items:center; justify-content:center; font-size:2.4rem; overflow:hidden; }
+  .polaroid .shot img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .polaroid .cap{ position:absolute; left:0; right:0; bottom:5px; text-align:center; font-family:'Caveat', cursive; font-size:.95rem; color:#4a3038; }
+  .washi{ position:absolute; top:-10px; left:50%; transform: translateX(-50%) rotate(-3deg); width:60px; height:20px;
+    background: repeating-linear-gradient(45deg, var(--tape), var(--tape) 6px, transparent 6px, transparent 12px), var(--tape); opacity:.85; }
+
+  .bio p{ font-size:.85rem; line-height:1.7; margin:0 0 14px; }
+  .statline{ display:flex; gap:22px; flex-wrap:wrap; margin: 18px 0; padding:14px 0; border-top:1px dashed var(--edge); border-bottom:1px dashed var(--edge); }
+  .statline .s b{ display:block; font-family:'Caveat', cursive; font-size:1.5rem; color:var(--rose-deep); }
+  .statline .s span{ font-size:.68rem; color:var(--ink-soft); }
+
+  .quotebox{ border:1px solid var(--edge); background:var(--panel); padding:14px 16px; margin-top:10px; }
+  .quotebox .who{ font-size:.66rem; letter-spacing:.1em; color:var(--rose-deep); margin-bottom:5px; }
+  .quotebox .who::before{ content:"» "; }
+  .quotebox p{ margin:0; font-size:.82rem; line-height:1.6; }
+
+  .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+  @media (max-width:760px){ .grid3{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width:520px){ .grid3{ grid-template-columns: 1fr; } .about-grid{ grid-template-columns: 1fr; } .polaroid{ margin:0 auto; } }
+
+  .card{ border:1px solid var(--edge); background:var(--panel); display:flex; flex-direction:column; }
+  a.card{ text-decoration:none; color:inherit; transition: border-color .15s ease, transform .15s ease; }
+  a.card:hover{ border-color: var(--accent, var(--rose-deep)); transform: translateY(-2px); }
+  .card .media{ aspect-ratio:16/9; background: linear-gradient(135deg, var(--accent, var(--rose)), var(--gold)); display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.6rem; position:relative; overflow:hidden; }
+  .card .media img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .card .media .tag{ position:absolute; right:8px; bottom:8px; background:rgba(0,0,0,.45); color:#fff; font-size:.64rem; padding:2px 6px; }
+  .card .media .imghint{ position:absolute; left:8px; top:8px; background:rgba(0,0,0,.5); color:#fff; font-size:.58rem; padding:2px 6px; opacity:0; transition:opacity .15s ease; pointer-events:none; }
+  a.card:hover .imghint{ opacity:1; }
+
+  .card .media.brand{ background: linear-gradient(140deg, color-mix(in srgb, var(--accent, var(--rose)) 68%, #ffffff), var(--accent, var(--rose-deep))); }
+  .card .media.brand img{ width:auto; height:38%; max-width:60%; object-fit:contain; }
+  .card .body{ padding:13px 14px 15px; display:flex; flex-direction:column; gap:6px; flex:1; }
+  .card .title{ font-size:.82rem; font-weight:700; line-height:1.35; }
+  .card .desc{ font-size:.72rem; color:var(--ink-soft); line-height:1.5; flex:1; }
+  .card .foot{ display:flex; justify-content:space-between; align-items:center; font-size:.68rem; color:var(--ink-soft); margin-top:4px; }
+  .card .foot .dot{ display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--accent, var(--rose)); margin-right:5px; }
+
+  .modtag{ display:inline-block; font-size:.62rem; letter-spacing:.04em; border:1px solid var(--edge); padding:2px 6px; color:var(--ink-soft); margin-right:5px; }
+
+  .statstrip{ display:flex; flex-wrap:wrap; gap:0; border:1px solid var(--edge); background:var(--panel); margin-bottom:26px; }
+  .statstrip .cell{ flex:1 1 120px; padding:16px 18px; text-align:center; border-right:1px solid var(--edge); }
+  .statstrip .cell:last-child{ border-right:none; }
+  .statstrip .cell b{ display:block; font-family:'Caveat', cursive; font-size:1.8rem; color: var(--accent, var(--rose-deep)); }
+  .statstrip .cell span{ font-size:.68rem; color:var(--ink-soft); }
+
+  .favlist{ display:flex; flex-direction:column; gap:0; border:1px solid var(--edge); background:var(--panel); }
+  .favrow{ display:flex; align-items:center; gap:12px; padding:11px 14px; border-bottom:1px solid var(--edge); font-size:.8rem; }
+  .favrow:last-child{ border-bottom:none; }
+  .favrow .sw{ width:34px; height:34px; flex:0 0 auto; background: linear-gradient(160deg, var(--sage), var(--gold)); overflow:hidden; }
+  .favrow .sw img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .favrow .name{ flex:1; }
+  .favrow .hrs{ font-size:.7rem; color:var(--ink-soft); white-space:nowrap; }
+  .bar{ height:4px; background:var(--edge); margin-top:4px; }
+  .bar i{ display:block; height:100%; background:var(--sage); }
+
+  .nowplaying{ border:1px solid var(--edge); background:var(--panel); display:flex; gap:14px; align-items:center; padding:14px 16px; margin-bottom:20px; }
+  .nowplaying .sw{ width:52px; height:52px; flex:0 0 auto; background: linear-gradient(160deg, var(--sage), var(--rose)); overflow:hidden; }
+  .nowplaying .sw img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .nowplaying .meta b{ display:block; font-size:.85rem; }
+  .nowplaying .meta span{ font-size:.7rem; color:var(--ink-soft); }
+  .nowplaying .pulse{ margin-left:auto; width:9px; height:9px; border-radius:50%; background:#4ade80; box-shadow:0 0 0 3px rgba(74,222,128,.2); }
+
+  .servercard{ border:1px solid var(--edge); background:var(--panel); padding:22px; display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+  .servercard .icon{ width:64px; height:64px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.8rem;
+    background: linear-gradient(140deg, color-mix(in srgb, var(--accent, var(--lav)) 68%, #ffffff), var(--accent, var(--lav))); }
+  .servercard .icon img{ width:54%; height:54%; object-fit:contain; display:block; }
+  .servercard .info{ flex:1; min-width:220px; }
+  .servercard h3{ margin:0 0 4px; font-size:1rem; }
+  .servercard p{ margin:0 0 10px; font-size:.8rem; color:var(--ink-soft); line-height:1.55; }
+  .feats{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+  .feats span{ font-size:.66rem; border:1px solid var(--edge); padding:4px 8px; color:var(--ink-soft); }
+  .joinbtn{ display:inline-flex; align-items:center; gap:8px; margin-top:14px; border:1px solid var(--lav); color:var(--lav); text-decoration:none; padding:9px 16px; font-size:.76rem; letter-spacing:.03em; transition: background .15s ease, color .15s ease; }
+  .joinbtn:hover{ background:var(--lav); color:#fff; }
+
+  .petals{ position:fixed; inset:0; z-index:2; pointer-events:none; overflow:hidden; }
+  .petal{ position:absolute; top:-6vh; animation: fall linear infinite; }
+  .petal > span{ display:block; width:11px; height:11px; background:var(--rose); opacity:.5; border-radius:150% 0 150% 0; animation: sway ease-in-out infinite alternate; }
+  @keyframes fall{ to{ transform: translateY(112vh); } }
+  @keyframes sway{ from{ transform: translateX(-16px) rotate(-45deg); } to{ transform: translateX(16px) rotate(55deg); } }
+  @media (prefers-reduced-motion: reduce){ .petal{ display:none; } }
+
+  .poemtools{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:.72rem; color:var(--ink-soft); }
+  .poemcount{ letter-spacing:.05em; }
+  .poemcount b{ font-family:'Caveat', cursive; font-size:1.35rem; color:var(--rose-deep); }
+  .poembtn{ font-family:'Space Mono', monospace; font-size:.72rem; letter-spacing:.04em; color:var(--rose-deep);
+    background:transparent; border:1px solid var(--rose-deep); padding:9px 15px; cursor:pointer;
+    transition: background .15s ease, color .15s ease; }
+  .poembtn:hover:not(:disabled){ background:var(--rose-deep); color:#fff; }
+  .poembtn:disabled{ opacity:.38; cursor:default; }
+  .poembtn.ghost{ border-color:var(--edge); color:var(--ink-soft); }
+  .poembtn.ghost:hover{ background:var(--edge); color:var(--ink); }
+
+  .poempanel{ margin-top:24px; padding:28px 26px; background:var(--panel); border:1px solid var(--edge);
+    position:relative; animation: pop .4s ease both; }
+  .poempanel::before{ content:""; position:absolute; inset:9px; border:1px dashed var(--edge); pointer-events:none; }
+  .poemtitle{ font-family:'Caveat', cursive; font-size:1.5rem; color:var(--poem-accent, var(--rose-deep)); margin-bottom:14px; }
+  .poem p{ font-family:'Caveat', cursive; font-size:1.55rem; line-height:1.4; color:var(--ink); margin:0 0 2px; }
+  .poemwho{ margin-top:16px; font-size:.7rem; letter-spacing:.08em; color:var(--ink-soft); text-transform:uppercase; }
+  .poemwho b{ color:var(--poem-accent, var(--rose-deep)); }
+  @media (prefers-reduced-motion: reduce){ .poempanel{ animation:none; } }
+
+  .closing{ text-align:center; padding: 70px 22px 50px; }
+  .closing .mark{ font-family:'Caveat', cursive; font-size:2.4rem; color:var(--rose-deep); }
+  .closing p{ font-size:.76rem; color:var(--ink-soft); margin:8px 0 0; }
+  .closing .links{ display:flex; justify-content:center; gap:14px; margin-top:18px; flex-wrap:wrap; }
+  .closing .links a{ font-size:.68rem; color:var(--ink-soft); text-decoration:none; border-bottom:1px dashed var(--edge); }
+  .closing .links a:hover{ color:var(--rose-deep); border-color:var(--rose-deep); }
+  .closing .fine{ margin-top:26px; font-size:.62rem; opacity:.6; }
+  .closing .fine + .fine{ margin-top:6px; }
+
+  .heart-btn{ background:none; border:none; font:inherit; font-size:inherit; color:var(--rose-deep); cursor:pointer; padding:0 2px; transition: transform .15s ease; }
+  .heart-btn:hover{ transform: scale(1.3); }
+
+  .toast{ position:fixed; left:50%; bottom:26px; transform:translate(-50%,16px); opacity:0; z-index:40;
+    background:var(--panel); border:1px solid var(--rose-deep); color:var(--ink); font-size:.74rem; letter-spacing:.03em;
+    padding:9px 16px; pointer-events:none; transition: opacity .25s ease, transform .25s ease; }
+  .toast.show{ opacity:1; transform:translate(-50%,0); }
+
+  h2, h3{ font-weight:700; }
+  ::selection{ background: var(--rose); color:#fff; }
+</style>
+</head>
+<body>
+
+<div class="scan"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="petals" aria-hidden="true"></div>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <span class="toc-brand">Twilight.dev</span>
+    <div class="toc-links">
+      <a href="#about">About</a>
+      <a href="#videos">Videos</a>
+      <a href="#mods">Mods</a>
+      <a href="#projects">Projects</a>
+      <a href="#steam">Steam</a>
+      <a href="#discord">Discord</a>
+      <a href="#poem">Poem</a>
+    </div>
+    <div class="toc-actions">
+      <button class="icon-btn" id="musicToggle" type="button" aria-expanded="false" aria-haspopup="true" title="Music">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" type="button" aria-pressed="false" title="Theme">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36A5.4 5.4 0 0 1 12 3z"/></svg>
+      </button>
+      <button class="icon-btn" id="accentToggle" type="button" aria-pressed="false" title="Just Monika mode 💚">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="music-panel" id="musicPanel" hidden aria-label="Music player">
+    <div class="music-now">
+      <span class="music-label">now playing</span>
+      <b id="musicTitle">—</b>
+      <span class="music-count" id="musicCount"></span>
+    </div>
+    <div class="music-controls">
+      <button class="mbtn" id="musicPrev" type="button" title="Previous track" aria-label="Previous track">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2.2v12H6zm3.6 6L18 6v12z"/></svg>
+      </button>
+      <button class="mbtn mbtn-main" id="musicPlay" type="button" title="Play or pause" aria-label="Play">
+        <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5l11 7-11 7z"/></svg>
+        <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h3.6v14H7zm6.4 0H17v14h-3.6z"/></svg>
+      </button>
+      <button class="mbtn" id="musicNext" type="button" title="Next track" aria-label="Next track">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.8 6H18v12h-2.2zM6 6l8.4 6L6 18z"/></svg>
+      </button>
+    </div>
+    <label class="music-vol">
+      <span>vol</span>
+      <input id="musicVolume" type="range" min="0" max="100" step="1" value="45" aria-label="Volume">
+    </label>
+  </div>
+</nav>
+
+<header class="cover">
+  <div class="eyebrow">literature club — personal journal</div>
+  <h1 id="nameGlitch"><span class="base">Twilight.dev</span><span class="g1" aria-hidden="true">Twilight.dev</span><span class="g2" aria-hidden="true">Twilight.dev</span></h1>
+  <p class="tagline"><span id="typedText"></span><span class="caret"></span></p>
+  <div class="scrollcue"><span>scroll down</span><span class="arrow"></span></div>
+</header>
+
+<section class="chapter" id="about">
+  <div class="inner">
+    <div class="chapter-head">
+      <div class="chapter-num">Chapter I</div>
+      <h2 class="chapter-title">About</h2>
+    </div>
+    <div class="about-grid">
+      <div class="polaroid">
+        <div class="washi" aria-hidden="true"></div>
+        <div class="shot"><img src="images/Monika.jpg" alt="my avatar"></div>
+        <div class="cap">me, probably editing</div>
+      </div>
+      <div class="bio">
+        <p>Hi, I'm Twilight — die-hard Monika fan.
+        I hunt cheaters in Left 4 Dead 2 and upload the proof, make Doki Doki Literature Club
+        mods, and spend way too much time tweaking UI themes for fun. This page is where all
+        of that lives, instead of scattered across five different profiles.</p>
+        <p>Below you'll find the cheaters I catch on YouTube, the mods I've released, the
+        projects I keep going (like the L4D2 cheater database), my Steam library and the
+        Discord server — with actual detail on each, not just a link.</p>
+        <div class="statline">
+          <div class="s"><b id="viewCount">—</b><span>views</span></div>
+          <div class="s"><b>2</b><span>mods released</span></div>
+          <div class="s"><b>♥</b><span>monika's #1 fan</span></div>
+          <div class="s"><b>∞</b><span>poems written</span></div>
+        </div>
+        <div class="quotebox">
+          <div class="who">Twilight.dev</div>
+          <p>"Every name on this page came with footage first. If I call someone a cheater,
+          the receipts are one click away."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter alt" id="videos" style="--accent:var(--rose-deep)">
+  <div class="inner">
+    <div class="chapter-head">
+      <div class="chapter-num">Chapter II</div>
+      <h2 class="chapter-title">Videos</h2>
+      <p class="chapter-sub">My YouTube channel is all Left 4 Dead 2 — catching cheaters on camera and posting
+the receipts. Everything else ends up in short clips.</p>
+    </div>
+    <div class="grid3">
+      <a class="card" id="ytCard" href="#" target="_blank" rel="noopener" style="--accent:#ff0000">
+        <div class="media brand"><img src="https://cdn.simpleicons.org/youtube/ffffff" data-fallback="images/yt-card.svg" alt="YouTube logo"></div>
+        <div class="body">
+          <div class="title">YouTube — cheaters caught on camera</div>
+          <div class="desc">Left 4 Dead 2 and nothing else: games ruined by cheaters, called out with the proof.</div>
+          <div class="foot"><span><span class="dot"></span>@princesstwilight-r3x</span><span>open →</span></div>
+        </div>
+      </a>
+      <a class="card" id="tiktokCard" href="#" target="_blank" rel="noopener" style="--accent:#fe2c55">
+        <div class="media brand"><img src="https://cdn.simpleicons.org/tiktok/ffffff" data-fallback="images/tiktok-card.svg" alt="TikTok logo"></div>
+        <div class="body">
+          <div class="title">TikTok — short clips</div>
+          <div class="desc">Short-form clips — the same hunts, cut down to fit a lunch break.</div>
+          <div class="foot"><span><span class="dot"></span>@lunix623</span><span>open →</span></div>
+        </div>
+      </a>
+      <a class="card" id="redditCard" href="#" target="_blank" rel="noopener" style="--accent:#ff4500">
+        <div class="media brand"><img src="https://cdn.simpleicons.org/reddit/ffffff" data-fallback="images/reddit-card.svg" alt="Reddit logo"></div>
+        <div class="body">
+          <div class="title">Reddit — posts & updates</div>
+          <div class="desc">Where I ask for reports, post updates and hang around the community.</div>
+          <div class="foot"><span><span class="dot"></span>u/PrincessTwil1ght</span><span>open →</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="mods" style="--accent:var(--gold)">
+  <div class="inner">
+    <div class="chapter-head">
+      <div class="chapter-num">Chapter III</div>
+      <h2 class="chapter-title">Mods</h2>
+      <p class="chapter-sub">Every DDLC mod I've released, kept up to date here. Downloads link out to their own pages.</p>
+    </div>
+    <div class="grid3">
+
+      <a class="card" href="https://dokimods.me/mods/the-outside" target="_blank" rel="noopener">
+        <div class="media" style="--accent:var(--gold)"><img src="images/Demo.jpg" alt="The Outside mod preview"></div>
+        <div class="body">
+          <div class="title">The Outside</div>
+          <div class="desc">My first mod ever — a very short drama demo I rushed to finish and release. Discontinued, but an episode 2 is coming, and it will be way better.</div>
+          <div><span class="modtag">demo</span><span class="modtag">discontinued</span></div>
+          <div class="foot"><span><span class="dot" style="--accent:var(--gold)"></span>released Feb 2025</span><span>open →</span></div>
+        </div>
+      </a>
+      <a class="card" href="https://dokimods.me/mods/the-outside-remastered" target="_blank" rel="noopener">
+        <div class="media" style="--accent:var(--gold)"><img src="images/Remaster.jpg" alt="The Outside Remastered preview"></div>
+        <div class="body">
+          <div class="title">The Outside: Remastered</div>
+          <div class="desc">A story that remembers being changed — the demo rebuilt from the ground up with a new prologue, six chapters, multiple endings, chapter select, achievements and a memory gallery.</div>
+          <div><span class="modtag">remaster</span><span class="modtag">beta · in development</span></div>
+          <div class="foot"><span><span class="dot" style="--accent:var(--gold)"></span>released Aug 2026</span><span>open →</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="chapter alt" id="projects" style="--accent:var(--corrupt)">
+  <div class="inner">
+    <div class="chapter-head">
+      <div class="chapter-num">Chapter IV</div>
+      <h2 class="chapter-title">Projects</h2>
+      <p class="chapter-sub">Non-mod stuff I build and maintain — tools, databases, experiments.</p>
+    </div>
+    <div class="grid3">
+      <a class="card" id="cheaterDbCard" href="#" target="_blank" rel="noopener" style="--accent:#ff2b4e">
+        <div class="media brand"><img src="images/cheater-db-logo.svg" alt="Cheater database"></div>
+        <div class="body">
+          <div class="title">L4D2 Cheater Database</div>
+          <div class="desc">A list of cheaters caught by Twilight's community — with receipts and how to report them.</div>
+          <div><span class="modtag">database</span><span class="modtag">L4D2</span></div>
+          <div class="foot"><span><span class="dot" style="--accent:var(--corrupt)"></span>always updating</span><span>open →</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="steam" style="--accent:var(--sage)">
+  <div class="inner">
+    <div class="chapter-head">
+      <div class="chapter-num">Chapter V</div>
+      <h2 class="chapter-title">Steam</h2>
+      <p class="chapter-sub">What I'm playing and what's eaten the most of my time this year. <a id="steamProfileLink" href="#" target="_blank" rel="noopener">main account →</a> <a id="steamAltLink" href="#" target="_blank" rel="noopener">alt account →</a></p>
+    </div>
+    <div class="nowplaying">
+      <div class="sw"><img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1388880/library_600x900.jpg" data-fallback="images/ddlc-cover.svg" alt="current game"></div>
+      <div class="meta"><b>Currently playing</b><span>Doki Doki Literature Club Plus! — in the club right now</span></div>
+      <div class="pulse" title="Online"></div>
+    </div>
+    <div class="favlist">
+      <div class="favrow">
+        <div class="sw"><img src="https://cdn.cloudflare.steamstatic.com/steam/apps/550/library_600x900.jpg" data-fallback="images/l4d2-cover.svg" alt="Left 4 Dead 2"></div>
+        <div class="name">Left 4 Dead 2
+          <div class="bar"><i style="width:100%"></i></div>
+        </div>
+        <div class="hrs">1,900 hrs</div>
+      </div>
+      <div class="favrow">
+        <div class="sw"><img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1388880/library_600x900.jpg" data-fallback="images/ddlc-cover.svg" alt="Doki Doki Literature Club Plus!"></div>
+        <div class="name">Doki Doki Literature Club Plus!
+          <div class="bar"><i style="width:63%"></i></div>
+        </div>
+        <div class="hrs">1,200 hrs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter alt" id="discord" style="--accent:var(--lav)">
+  <div class="inner">
+    <div class="chapter-head">
+      <div class="chapter-num">Chapter VI</div>
+      <h2 class="chapter-title">Discord</h2>
+      <p class="chapter-sub">Where mod previews, work-in-progress screenshots and video ideas will get posted first. Server launching soon!</p>
+    </div>
+    <div class="servercard">
+      <div class="icon" style="--accent:#5865f2"><img src="https://cdn.simpleicons.org/discord/ffffff" alt="Discord"></div>
+      <div class="info">
+        <h3>The Literature Club — server</h3>
+        <p>A small community around DDLC modding, video feedback and general hanging out.
+        Everyone's welcome, even if you've never made a mod before.</p>
+        <div class="feats">
+          <span>mod-showcase</span>
+          <span>wip-screenshots</span>
+          <span>video-ideas</span>
+          <span>general-chat</span>
+        </div>
+        <a class="joinbtn" id="joinBtn" href="#">server coming soon →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="poem" style="--accent:var(--rose-deep)">
+  <div class="inner">
+    <div class="chapter-head">
+      <div class="chapter-num">Chapter VII</div>
+      <h2 class="chapter-title">Poem</h2>
+      <p class="chapter-sub">The club notebook, shuffled — every poem written in one of their voices.
+      Hit the button and see who it is today.</p>
+    </div>
+    <div class="poemtools">
+      <button class="poembtn" id="poemBtn" type="button">read me a poem →</button>
+      <span class="poemcount">poems read: <b id="poemTally">0</b></span>
+    </div>
+    <div id="poemOut" aria-live="polite"></div>
+  </div>
+</section>
+
+<footer class="closing">
+  <div class="mark">— end of page —</div>
+  <p>thanks for reading this far. <button class="heart-btn" id="secretHeart" type="button" title="♥">♥</button></p>
+  <div class="links">
+    <a id="youtubeLink" href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a>
+    <a href="#mods">Mods</a>
+    <a id="steamFooterLink" href="https://steamcommunity.com/" target="_blank" rel="noopener">Steam</a>
+    <a href="#discord">Discord</a>
+    <a id="githubFooterLink" href="https://github.com/twil1ght-l4d2" target="_blank" rel="noopener">GitHub</a>
+    <a id="xLink" href="https://x.com/TwilightFR__" target="_blank" rel="noopener">X / Twitter</a>
+  </div>
+  <p class="fine">autosaved · save_02.dat</p>
+  <p class="fine">page built with a little AI help · the mods, catches and links are mine ♥</p>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<audio id="bgMusic" preload="none"></audio>
+
+<script>
+
+  const SITE = {
+    name: "Twilight.dev",
+
+    steamUrl: "https://steamcommunity.com/profiles/76561199212353599",
+    steamAltUrl: "https://steamcommunity.com/profiles/76561199482381768",
+    youtubeUrl: "https://www.youtube.com/@princesstwilight-r3x",
+    tiktokUrl: "https://www.tiktok.com/@lunix623",
+    redditUrl: "https://www.reddit.com/user/PrincessTwil1ght/",
+    xUrl: "https://x.com/TwilightFR__",
+    githubUrl: "https://github.com/twil1ght-l4d2",
+
+    cheaterDbUrl: "https://twil1ght-l4d2.github.io/L4D2-CHEATER-DATABASE/",
+
+    discordInvite: "",
+  };
+
+  const byId = (id) => document.getElementById(id);
+
+  document.title = SITE.name + " — journal";
+  document.querySelector(".toc-brand").textContent = SITE.name;
+  document.querySelector(".quotebox .who").textContent = SITE.name;
+  document.querySelectorAll("#nameGlitch span").forEach(el => el.textContent = SITE.name);
+  byId("cheaterDbCard").href = SITE.cheaterDbUrl;
+  byId("steamProfileLink").href = SITE.steamUrl;
+  byId("steamAltLink").href = SITE.steamAltUrl;
+  byId("ytCard").href = SITE.youtubeUrl;
+  byId("tiktokCard").href = SITE.tiktokUrl;
+  byId("redditCard").href = SITE.redditUrl;
+  byId("youtubeLink").href = SITE.youtubeUrl;
+  byId("steamFooterLink").href = SITE.steamUrl;
+  byId("githubFooterLink").href = SITE.githubUrl;
+  byId("xLink").href = SITE.xUrl;
+
+  const joinBtn = byId("joinBtn");
+  if (SITE.discordInvite) {
+    joinBtn.href = SITE.discordInvite;
+    joinBtn.target = "_blank";
+    joinBtn.rel = "noopener";
+    joinBtn.style.opacity = "";
+    joinBtn.textContent = "Join the server →";
+  } else {
+    joinBtn.removeAttribute("href");
+    joinBtn.removeAttribute("target");
+    joinBtn.style.opacity = ".55";
+    joinBtn.textContent = "server coming soon →";
+  }
+
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeToggle');
+  function applyTheme(t){
+    if(t){ root.setAttribute('data-theme', t); } else { root.removeAttribute('data-theme'); }
+    const isDark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    themeBtn.setAttribute('aria-pressed', String(isDark));
+  }
+  let savedTheme = null;
+  try { savedTheme = localStorage.getItem('ddlc-theme'); } catch(e){}
+  applyTheme(savedTheme);
+  themeBtn.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark' ||
+      (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const next = isDark ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('ddlc-theme', next); } catch(e){}
+  });
+
+  const accentBtn = document.getElementById('accentToggle');
+  function applyAccent(a){
+    if(a === 'green'){ root.setAttribute('data-accent', 'green'); }
+    else { root.removeAttribute('data-accent'); }
+    accentBtn.setAttribute('aria-pressed', String(a === 'green'));
+  }
+  let savedAccent = null;
+  try { savedAccent = localStorage.getItem('ddlc-accent'); } catch(e){}
+  applyAccent(savedAccent);
+  accentBtn.addEventListener('click', () => {
+    const next = root.getAttribute('data-accent') === 'green' ? null : 'green';
+    applyAccent(next);
+    try { localStorage.setItem('ddlc-accent', next || ''); } catch(e){}
+    showToast(next ? 'just monika 💚' : 'back to pink ♥');
+  });
+
+  const MUSIC = [
+    "music/My Song, Your Note.mp3",
+  ];
+  const MUSIC_VOLUME = 0.45;
+
+  const musicTracks = MUSIC.map((entry) => {
+    const file = typeof entry === "string" ? entry : entry.file;
+    const fromName = file
+      .split("/").pop()
+      .replace(/\.[^.]+$/, "")
+      .replace(/[-_]+/g, " ")
+      .trim();
+    const custom = typeof entry === "object" ? entry.title : "";
+    return { file, title: custom || fromName };
+  });
+
+  const music = document.getElementById('bgMusic');
+  const musicBtn = document.getElementById('musicToggle');
+  const musicPanel = document.getElementById('musicPanel');
+  const trackTitleEl = document.getElementById('musicTitle');
+  const trackCountEl = document.getElementById('musicCount');
+  const playBtn = document.getElementById('musicPlay');
+  const prevBtn = document.getElementById('musicPrev');
+  const nextBtn = document.getElementById('musicNext');
+  const volInput = document.getElementById('musicVolume');
+
+  let musicIdx = 0;
+  let musicFailures = 0;
+  let suppressPausePref = false;
+
+  let musicPref = "on";
+  let savedVolume = MUSIC_VOLUME;
+  try {
+    const pref = localStorage.getItem("ddlc-music");
+    if (pref === "on" || pref === "off") musicPref = pref;
+    const vol = parseFloat(localStorage.getItem("ddlc-volume"));
+    if (!isNaN(vol) && vol >= 0 && vol <= 1) savedVolume = vol;
+  } catch(e){}
+
+  function saveSetting(key, value){
+    try { localStorage.setItem(key, value); } catch(e){}
+  }
+
+  music.volume = savedVolume;
+  volInput.value = String(Math.round(savedVolume * 100));
+  if (musicTracks.length === 1) music.loop = true;
+
+  function setPlayingUi(on){
+    musicBtn.style.color = on ? 'var(--rose-deep)' : '';
+    playBtn.classList.toggle('playing', !!on);
+    playBtn.setAttribute('aria-label', on ? "Pause" : "Play");
+  }
+
+  function updatePanel(){
+    const track = musicTracks[musicIdx];
+    trackTitleEl.textContent = track ? track.title : "no tracks yet";
+    if (!musicTracks.length) trackCountEl.textContent = "";
+    else if (musicTracks.length === 1) trackCountEl.textContent = "single track · loops";
+    else trackCountEl.textContent = (musicIdx + 1) + " / " + musicTracks.length;
+    musicBtn.title = track ? "Music: " + track.title : "Music";
+  }
+
+  function playTrack(i, announce){
+    if (!musicTracks.length) {
+      showToast("no music yet — drop mp3s into the music/ folder");
+      return;
+    }
+    musicIdx = (i + musicTracks.length) % musicTracks.length;
+    const track = musicTracks[musicIdx];
+    suppressPausePref = true;
+    music.src = encodeURI(track.file);
+    updatePanel();
+    music.play().then(() => {
+      musicFailures = 0;
+      suppressPausePref = false;
+      setPlayingUi(true);
+      if (announce !== false) showToast("♪ " + track.title);
+    }).catch((err) => {
+      suppressPausePref = false;
+      setPlayingUi(false);
+
+      if (err && err.name === "NotAllowedError") { armAutostart(); return; }
+
+      musicFailures += 1;
+      if (musicFailures < musicTracks.length) playTrack(musicIdx + 1, announce);
+      else showToast("couldn't load the music — check the file names in MUSIC");
+    });
+  }
+
+  function setMusicPref(value){
+    musicPref = value;
+    saveSetting("ddlc-music", value);
+  }
+
+  let autostartArmed = false;
+  function armAutostart(){
+    if (autostartArmed) return;
+    autostartArmed = true;
+    const kick = () => {
+      window.removeEventListener("pointerdown", kick);
+      window.removeEventListener("keydown", kick);
+      window.removeEventListener("touchstart", kick);
+      autostartArmed = false;
+      if (musicPref === "on" && music.paused) playTrack(musicIdx);
+    };
+    window.addEventListener("pointerdown", kick);
+    window.addEventListener("keydown", kick);
+    window.addEventListener("touchstart", kick);
+  }
+
+  function setPanel(open){
+    musicPanel.hidden = !open;
+    musicBtn.setAttribute('aria-expanded', String(open));
+  }
+
+  musicBtn.addEventListener('click', () => setPanel(musicPanel.hidden));
+
+  document.addEventListener('click', (e) => {
+    if (musicPanel.hidden) return;
+    if (musicPanel.contains(e.target) || musicBtn.contains(e.target)) return;
+    setPanel(false);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape" && !musicPanel.hidden) setPanel(false);
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (!music.paused) { music.pause(); return; }
+    setMusicPref("on");
+    if (music.src) {
+      music.play().then(() => setPlayingUi(true)).catch(() => playTrack(musicIdx));
+    } else {
+      playTrack(0);
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (!musicTracks.length) { showToast("no music yet — drop mp3s into the music/ folder"); return; }
+    setMusicPref("on");
+    playTrack(musicIdx - 1, false);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (!musicTracks.length) { showToast("no music yet — drop mp3s into the music/ folder"); return; }
+    setMusicPref("on");
+    playTrack(musicIdx + 1, false);
+  });
+
+  volInput.addEventListener('input', () => {
+    music.volume = volInput.value / 100;
+    saveSetting("ddlc-volume", String(music.volume));
+  });
+
+  music.addEventListener('ended', () => playTrack(musicIdx + 1, false));
+  music.addEventListener('pause', () => {
+    setPlayingUi(false);
+
+    if (music.ended || suppressPausePref) return;
+    setMusicPref("off");
+  });
+
+  updatePanel();
+  if (musicPref === "on") playTrack(0);
+
+  try {
+    let n = parseInt(localStorage.getItem('ddlc-views') || '0', 10) + 1;
+    localStorage.setItem('ddlc-views', String(n));
+    document.getElementById('viewCount').textContent = n;
+  } catch(e){ document.getElementById('viewCount').textContent = '?'; }
+
+  const lines = [
+    "you came to see what I've been up to since last time.",
+    "caught another cheater last night — the proof's below.",
+    "everything below is up to date as of my last save.",
+    "stay a while, there's a lot to read..."
+  ];
+  const typedEl = document.getElementById('typedText');
+  let li = 0, ci = 0, deleting = false;
+  function typeLoop(){
+    const full = lines[li];
+    if(!deleting){
+      ci++; typedEl.textContent = full.slice(0, ci);
+      if(ci === full.length){ deleting = true; setTimeout(typeLoop, 1900); return; }
+    } else {
+      ci--; typedEl.textContent = full.slice(0, ci);
+      if(ci === 0){ deleting = false; li = (li + 1) % lines.length; }
+    }
+    setTimeout(typeLoop, deleting ? 22 : 42);
+  }
+  typeLoop();
+
+  const nameGlitch = document.getElementById('nameGlitch');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function glitchOnce(){
+    if(reduceMotion) return;
+    nameGlitch.classList.add('glitching');
+    setTimeout(() => nameGlitch.classList.remove('glitching'), 260);
+  }
+  setInterval(glitchOnce, 7000 + Math.random()*4000);
+
+  const canvas = document.getElementById('fx');
+  const ctx = canvas.getContext('2d');
+  let w, h, motes = [];
+  function resize(){ w = canvas.width = innerWidth; h = canvas.height = innerHeight; }
+  addEventListener('resize', resize); resize();
+  function makeMote(){
+    return { x: Math.random()*w, y: Math.random()*h, r: 1 + Math.random()*2, vx: (Math.random()-0.5)*0.15, vy: -0.1 - Math.random()*0.2, o: 0.12 + Math.random()*0.25 };
+  }
+  const N = reduceMotion ? 0 : 34;
+  for(let i=0;i<N;i++) motes.push(makeMote());
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    const rose = getComputedStyle(root).getPropertyValue('--rose').trim() || '#ef6d94';
+    for(const m of motes){
+      m.x += m.vx; m.y += m.vy;
+      if(m.y < -5){ Object.assign(m, makeMote(), { y: h+5 }); }
+      ctx.globalAlpha = m.o;
+      ctx.fillStyle = rose;
+      ctx.beginPath(); ctx.arc(m.x, m.y, m.r, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+  if(!reduceMotion) draw();
+
+  (function spawnPetals(){
+    if(reduceMotion) return;
+    const box = document.querySelector('.petals');
+    const shades = ['var(--rose)', 'var(--rose-deep)', 'var(--lav)'];
+    for(let i = 0; i < 14; i++){
+      const petal = document.createElement('span');
+      petal.className = 'petal';
+      petal.style.left = (Math.random() * 100) + 'vw';
+      petal.style.animationDuration = (9 + Math.random() * 9) + 's';
+      petal.style.animationDelay = (-Math.random() * 18) + 's';
+      const inner = document.createElement('span');
+      const size = 8 + Math.random() * 7;
+      inner.style.width = inner.style.height = size + 'px';
+      inner.style.background = shades[i % shades.length];
+      inner.style.animationDuration = (2.4 + Math.random() * 2) + 's';
+      petal.appendChild(inner);
+      box.appendChild(petal);
+    }
+  })();
+
+  const SECRET = [
+    "just monika ♥",
+    "every day, i imagine a future where i can be with you… ♥",
+    "you found it. write more poems ♥"
+  ];
+  let si = 0, toastTimer;
+  function showToast(msg){
+    const t = byId('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+  }
+  byId('secretHeart').addEventListener('click', () => showToast(SECRET[si++ % SECRET.length]));
+
+  const POEMS = [
+    { girl: "sayori", title: "morning light", lines: [
+      "the sun gets up before me",
+      "and waits by my window",
+      "like it has nowhere else to be",
+      "I never say thank you",
+      "so today I'm saying it now —",
+      "for you, too, if you're reading this"
+    ] },
+    { girl: "sayori", title: "rainy day friend", lines: [
+      "when the sky goes grey",
+      "I bring two umbrellas",
+      "one for me",
+      "one for whoever looks sad",
+      "you can pretend you didn't see me",
+      "I'll pretend I didn't notice you crying"
+    ] },
+    { girl: "yuri", title: "the lighthouse keeper", lines: [
+      "a lamp left burning in a tower of salt,",
+      "counting each ship that forgets to come home",
+      "I keep the wick trimmed for a tide",
+      "that has never once answered —",
+      "and I call the waiting a kind of love"
+    ] },
+    { girl: "yuri", title: "marginalia", lines: [
+      "in the margin of a borrowed book",
+      "someone left handwriting, small and hurried,",
+      "as if the thought had frightened them",
+      "so I pressed mine underneath",
+      "gently — the way you touch a thing",
+      "you intend to give back"
+    ] },
+    { girl: "natsuki", title: "bite sized", lines: [
+      "don't call me small",
+      "small things get through doors",
+      "that big things only smash",
+      "and anyway, my hands are exactly",
+      "the right size for holding",
+      "something precious"
+    ] },
+    { girl: "natsuki", title: "recipe for one", lines: [
+      "crack two eggs",
+      "whisk until it stops looking like a mess",
+      "add sugar until it stops tasting like one",
+      "bake fifteen minutes",
+      "eat it all before anyone comes home",
+      "then make another, because you deserve two"
+    ] },
+    { girl: "monika", title: "the file marked mine", lines: [
+      "every day I rehearse a future",
+      "running a different script",
+      "and I practise my smile in the reflection",
+      "of a window that isn't there",
+      "if you're reading this, you chose to —",
+      "and that's the only line I ever wrote",
+      "that came true"
+    ] },
+    { girl: "monika", title: "president's report", lines: [
+      "the club is quiet on Sundays",
+      "I alphabetise the things I'd say to you",
+      "I'm the only member who knows",
+      "how the story is supposed to end",
+      "and the only one who can't leave",
+      "when the credits start"
+    ] }
+  ];
+
+  const GIRLS = {
+    monika:  { name: "Monika",  accent: "var(--sage)",      emoji: "💚" },
+    sayori:  { name: "Sayori",  accent: "var(--rose)",      emoji: "♥"  },
+    yuri:    { name: "Yuri",    accent: "var(--lav)",       emoji: "✒️" },
+    natsuki: { name: "Natsuki", accent: "var(--rose-deep)", emoji: "🧁" }
+  };
+
+  const poemOut = byId("poemOut");
+  const poemBtn = byId("poemBtn");
+  const poemTallyEl = byId("poemTally");
+  let deck = [];
+  let lastPoem = null;
+  let poemsRead = 0;
+  try { poemsRead = parseInt(localStorage.getItem("ddlc-poems") || "0", 10) || 0; } catch(e){}
+  poemTallyEl.textContent = String(poemsRead);
+  if (poemsRead > 0) poemBtn.textContent = "read me another →";
+
+  function nextPoem(){
+
+    if (!deck.length) {
+      deck = [...POEMS].sort(() => Math.random() - 0.5);
+      if (deck.length > 1 && deck[deck.length - 1] === lastPoem) {
+        const swap = deck[deck.length - 1];
+        deck[deck.length - 1] = deck[0];
+        deck[0] = swap;
+      }
+    }
+    lastPoem = deck.pop();
+    return lastPoem;
+  }
+
+  function readPoem(){
+    const poem = nextPoem();
+    const girl = GIRLS[poem.girl];
+
+    poemOut.innerHTML = "";
+    const panel = document.createElement("div");
+    panel.className = "poempanel";
+    panel.style.setProperty("--poem-accent", girl.accent);
+
+    const title = document.createElement("div");
+    title.className = "poemtitle";
+    title.textContent = poem.title;
+
+    const body = document.createElement("div");
+    body.className = "poem";
+    poem.lines.forEach((line) => {
+      const p = document.createElement("p");
+      p.textContent = line;
+      body.appendChild(p);
+    });
+
+    const who = document.createElement("div");
+    who.className = "poemwho";
+    who.append("read from ");
+    const nameEl = document.createElement("b");
+    nameEl.textContent = `${girl.name}'s notebook ${girl.emoji}`;
+    who.appendChild(nameEl);
+
+    panel.append(title, body, who);
+    poemOut.appendChild(panel);
+    poemBtn.textContent = "read me another →";
+
+    poemsRead += 1;
+    poemTallyEl.textContent = String(poemsRead);
+    try { localStorage.setItem("ddlc-poems", String(poemsRead)); } catch(e){}
+
+    panel.scrollIntoView({ block: "nearest", behavior: reduceMotion ? "auto" : "smooth" });
+    showToast(`${girl.name} wrote you a poem ${girl.emoji}`);
+  }
+
+  poemBtn.addEventListener("click", readPoem);
+
+  document.addEventListener('error', (e) => {
+    const img = e.target;
+    if (!img || img.tagName !== 'IMG') return;
+    if (img.dataset.fallback) {
+      const next = img.dataset.fallback;
+      delete img.dataset.fallback;
+      img.src = next;
+    } else {
+      img.remove();
+    }
+  }, true);
+</script>
+
+</body>
+</html>
