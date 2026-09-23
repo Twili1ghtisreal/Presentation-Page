@@ -228,7 +228,7 @@
   @keyframes sway{ from{ transform: translateX(-16px) rotate(-45deg); } to{ transform: translateX(16px) rotate(55deg); } }
   @media (prefers-reduced-motion: reduce){ .petal{ display:none; } }
 
-  .poemtools{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:.72rem; color:var(--ink-soft); }
+  .poemtools, .statement-tools{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:.72rem; color:var(--ink-soft); }
   .poemcount{ letter-spacing:.05em; }
   .poemcount b{ font-family:'Caveat', cursive; font-size:1.35rem; color:var(--rose-deep); }
   .poembtn{ font-family:'Space Mono', monospace; font-size:.72rem; letter-spacing:.04em; color:var(--rose-deep);
@@ -247,6 +247,30 @@
   .poemwho{ margin-top:16px; font-size:.7rem; letter-spacing:.08em; color:var(--ink-soft); text-transform:uppercase; }
   .poemwho b{ color:var(--poem-accent, var(--rose-deep)); }
   @media (prefers-reduced-motion: reduce){ .poempanel{ animation:none; } }
+  @keyframes pop{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+
+  .statement-note{ margin-top:11px; font-size:.76rem; line-height:1.6; letter-spacing:.02em; color:var(--ink-soft); opacity:.9; }
+
+  details.statement{ margin-top:22px; }
+  details.statement > summary{ list-style:none; cursor:pointer; display:inline-block; }
+  details.statement > summary::-webkit-details-marker{ display:none; }
+  details.statement > summary::marker{ content:""; }
+  details.statement .lbl-close{ display:none; }
+  details.statement[open] .lbl-open{ display:none; }
+  details.statement[open] .lbl-close{ display:inline; }
+  details.statement[open] > summary{ background:var(--rose-deep); border-color:var(--rose-deep); color:#fff; }
+
+  .letter{ margin:24px auto 0; max-width:660px; padding:32px 34px; background:var(--panel); border:1px solid var(--edge);
+    position:relative; animation: pop .45s ease both; }
+  .letter::before{ content:""; position:absolute; inset:9px; border:1px dashed var(--edge); pointer-events:none; }
+  .letter h3{ font-family:'Caveat', cursive; font-weight:700; font-size:1.45rem;
+    color: var(--accent, var(--rose-deep)); margin:30px 0 10px; }
+  .letter h3:first-child{ margin-top:2px; }
+  .letter p{ font-size:.92rem; line-height:1.8; margin:0 0 16px; }
+  .letter .sign{ margin:28px 0 0; padding-top:16px; border-top:1px dashed var(--edge);
+    font-family:'Caveat', cursive; font-size:1.2rem; line-height:1.5; color:var(--ink-soft); }
+  @media (max-width:520px){ .letter{ padding:24px 18px; } .letter::before{ inset:6px; } }
+  @media (prefers-reduced-motion: reduce){ .letter{ animation:none; } }
 
   .closing{ text-align:center; padding: 70px 22px 50px; }
   .closing .mark{ font-family:'Caveat', cursive; font-size:2.4rem; color:var(--rose-deep); }
@@ -286,6 +310,7 @@
       <a href="#steam">Steam</a>
       <a href="#discord">Discord</a>
       <a href="#poem">Poem</a>
+      <a href="#statement">Statement</a>
     </div>
     <div class="toc-actions">
       <button class="icon-btn" id="musicToggle" type="button" aria-expanded="false" aria-haspopup="true" title="Music">
@@ -527,6 +552,41 @@ the receipts. Everything else ends up in short clips.</p>
       <span class="poemcount">poems read: <b id="poemTally">0</b></span>
     </div>
     <div id="poemOut" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="chapter alt" id="statement" style="--accent:var(--lav)">
+  <div class="inner">
+    <div class="chapter-head">
+      <div class="chapter-num">Chapter VIII</div>
+      <h2 class="chapter-title">Why I Won't Look Away From This</h2>
+      <p class="chapter-sub">A personal statement on NSFW and sexualized content of the Doki Doki
+      Literature Club characters — and, by the same argument, of characters in games, anime and
+      stories generally. It's the longest read on this page and the one I care most about, so it
+      stays folded up until you ask for it.</p>
+      <p class="statement-note">content note · this one discusses sexualized fan content — nothing explicit is shown here</p>
+    </div>
+    <details class="statement">
+      <summary class="poembtn"><span class="lbl-open">read the whole thing →</span><span class="lbl-close">close it ↑</span></summary>
+      <article class="letter" id="statementLetter">
+        <h3>Where this comes from</h3>
+        <p>I've put thousands of hours into Doki Doki Literature Club and everything that's grown around it — Monika After Story, the mods, the community projects. In that time I've come to genuinely love every character in this game. Not in some ironic, detached way — actual affection, the kind you'd have for people you've spent years getting to know. That's exactly why I can't stay quiet when I see what gets done to them online.</p>
+        <p>I know how this comes across to some people. I know the reflex response: "it's just fictional, it doesn't hurt anyone, calm down." I've heard it before and I'll hear it again. I'm writing this anyway, because I think the reflex response skips past the actual point instead of answering it.</p>
+        <h3>The thought experiment</h3>
+        <p>Here's the simplest way I can put what I feel. Think of someone you actually love — a partner, a close friend, someone real in your life, or even a fictional character you've grown attached to the way I have with these characters. Now imagine thousands, maybe millions, of strangers taking that person's image, their face, their personality, and using it however they personally want — sexually, degradingly, without their say in it at all.</p>
+        <p>That discomfort you'd feel imagining that — that's the same thing I feel every time I scroll past this content on TikTok, Reddit, wherever it's turned up this week. It's not about being easily offended. It's that these characters were written with real intention, real voice, real emotional weight — and I've spent real time caring about who they are. Watching that get flattened into something to be used doesn't sit right with me, and I don't think it should have to.</p>
+        <h3>It's not just "they're not real"</h3>
+        <p>The usual counter is that fictional characters can't be harmed, so nothing here actually matters. I'd push back on that a little differently than most people do. It's not really about whether Sayori or Natsuki can feel anything — obviously they can't. It's about what the content says about how the people making and consuming it are choosing to treat a story that, for a lot of us, meant something real.</p>
+        <p>DDLC's characters weren't built to be sexualized. If anything, the game goes out of its way to make you sit with how young, how vulnerable, and how human these characters are supposed to feel. Taking that and reshaping it into fetish content isn't some neutral act happening in a vacuum — it's actively working against what the writing was doing in the first place. That's the part that bothers me more than the fictional-status debate ever could.</p>
+        <h3>It's not only about this game</h3>
+        <p>I want to be clear that none of this stops at DDLC. This game is just where it lands closest, because it's the one I've spent the most years inside — but the same thing turns up with other games, with anime, with manga, with any story where someone sat down and put real care into a character. If the writing gave them a voice, a history and a reason to care, then nothing above changes because the title on the cover does.</p>
+        <p>And I'm not drawing the line at "the characters I happen to like", either. Something gets popular, the people in it start getting treated like an inventory of parts, and whoever wrote them has no say in it — that's a pattern I've watched across fandoms long enough to know it never stays inside one of them. What bothers me isn't which game it is. It's the habit underneath, and the habit travels.</p>
+        <h3>Why I hold the line on this</h3>
+        <p>I'm not interested in policing what strangers do in corners of the internet I'll never see. But in spaces I actually have a say over — communities I help build, servers I run — I'm not going to pretend this is a matter of taste I should stay neutral on. A fandom that lets this kind of content sit unchallenged ends up normalizing it for the next wave of newcomers, and I'd rather be the person saying something than the person who let it slide.</p>
+        <p>If you disagree, that's fine — you're allowed to. I'm not writing this expecting to change every mind. But I know I'm not the only person who loves this game and feels sick seeing what's done to its characters, and I wanted that put into words somewhere more permanent than a comment that'll get buried by tomorrow.</p>
+        <p class="sign">— written out of genuine love for this game and its characters, not out of a wish to control anyone else's fandom.</p>
+      </article>
+    </details>
   </div>
 </section>
 
