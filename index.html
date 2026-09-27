@@ -86,6 +86,8 @@
     padding:6px 10px; border:1px solid transparent; white-space:nowrap; transition: color .15s ease, border-color .15s ease;
   }
   .toc-links a:hover, .toc-links a:focus-visible{ color:var(--rose-deep); border-color:var(--edge); }
+  .toc-links a.toc-key{ color:var(--rose-deep); border-color:color-mix(in srgb, var(--rose-deep) 40%, transparent); }
+  .toc-links a.toc-key:hover, .toc-links a.toc-key:focus-visible{ background:var(--rose-deep); color:#fff; border-color:var(--rose-deep); }
   .toc-actions{ display:flex; gap:6px; flex:0 0 auto; }
   .icon-btn{
     width:28px; height:28px; display:flex; align-items:center; justify-content:center;
@@ -265,7 +267,23 @@
   .letter::before{ content:""; position:absolute; inset:9px; border:1px dashed var(--edge); pointer-events:none; }
   .letter h3{ font-family:'Caveat', cursive; font-weight:700; font-size:1.45rem;
     color: var(--accent, var(--rose-deep)); margin:30px 0 10px; }
-  .letter h3:first-child{ margin-top:2px; }
+  .letter h3:first-of-type{ margin-top:2px; }
+  .letter h3[id]{ scroll-margin-top:8px; }   /* + html scroll-padding-top:64px ≈ 72px under the sticky nav */
+
+  .letter-toc{ margin:0 0 26px; padding:0 0 18px; border-bottom:1px dashed var(--edge); }
+  .letter-toc-head{ font-size:.56rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:9px; }
+  .letter-toc ol{ list-style:none; margin:0; padding:0; display:grid; gap:1px; }
+  .letter-toc a{ display:flex; gap:9px; align-items:baseline; font-size:.76rem; line-height:1.45;
+    color:var(--ink-soft); text-decoration:none; padding:4px 7px; border-left:2px solid transparent;
+    transition: color .15s ease, border-color .15s ease, background .15s ease; }
+  .letter-toc a:hover, .letter-toc a:focus-visible{
+    color:var(--ink); border-left-color:var(--accent, var(--rose-deep));
+    background: color-mix(in srgb, var(--accent, var(--rose-deep)) 9%, transparent); }
+  .letter-toc .n{ font-size:.58rem; letter-spacing:.08em; color:var(--accent, var(--rose-deep)); opacity:.8; }
+
+  .letter-foot{ margin:18px 0 0 !important; text-align:center; }
+  .letter-foot a{ font-size:.66rem; letter-spacing:.05em; color:var(--ink-soft); text-decoration:none; border-bottom:1px dashed var(--edge); }
+  .letter-foot a:hover{ color:var(--rose-deep); border-color:var(--rose-deep); }
   .letter p{ font-size:.92rem; line-height:1.8; margin:0 0 16px; }
   .letter .sign{ margin:28px 0 0; padding-top:16px; border-top:1px dashed var(--edge);
     font-family:'Caveat', cursive; font-size:1.2rem; line-height:1.5; color:var(--ink-soft); }
@@ -310,7 +328,7 @@
       <a href="#steam">Steam</a>
       <a href="#discord">Discord</a>
       <a href="#poem">Poem</a>
-      <a href="#statement">Statement</a>
+      <a class="toc-key" href="#statement">♥ Statement</a>
     </div>
     <div class="toc-actions">
       <button class="icon-btn" id="musicToggle" type="button" aria-expanded="false" aria-haspopup="true" title="Music">
@@ -565,35 +583,54 @@ the receipts. Everything else ends up in short clips.</p>
       Literature Club characters — and, by the same argument, of characters in games, anime and
       stories generally. It's the longest read on this page and the one I care most about, so it
       stays folded up until you ask for it.</p>
-      <p class="statement-note">content note · discusses sexualized fan content and one hostile community response — nothing explicit is shown here</p>
+      <p class="statement-note">content note · discusses sexualized fan content, cosplay and one hostile community response — nothing explicit is shown here</p>
     </div>
     <details class="statement">
       <summary class="poembtn"><span class="lbl-open">read the whole thing →</span><span class="lbl-close">close it ↑</span></summary>
       <article class="letter" id="statementLetter">
-        <h3>Where this comes from</h3>
+        <nav class="letter-toc" aria-label="Contents of this statement">
+          <div class="letter-toc-head">jump to a part of this</div>
+          <ol>
+            <li><a href="#st-origins"><span class="n">01</span>Where this comes from</a></li>
+            <li><a href="#st-thought"><span class="n">02</span>The thought experiment</a></li>
+            <li><a href="#st-real"><span class="n">03</span>It's not just "they're not real"</a></li>
+            <li><a href="#st-fandoms"><span class="n">04</span>It's not only about this game</a></li>
+            <li><a href="#st-cosplay"><span class="n">05</span>It turns up in cosplay too</a></li>
+            <li><a href="#st-said"><span class="n">06</span>What happened when I said something</a></li>
+            <li><a href="#st-understand"><span class="n">07</span>Why a lot of people won't understand this</a></li>
+            <li><a href="#st-hold"><span class="n">08</span>Why I hold the line on this</a></li>
+          </ol>
+        </nav>
+        <h3 id="st-origins">Where this comes from</h3>
         <p>I've put thousands of hours into Doki Doki Literature Club and everything that's grown around it — Monika After Story, the mods, the community projects. In that time I've come to genuinely love every character in this game. Not in some ironic, detached way — actual affection, the kind you'd have for people you've spent years getting to know. That's exactly why I can't stay quiet when I see what gets done to them online.</p>
         <p>I know how this comes across to some people. I know the reflex response: "it's just fictional, it doesn't hurt anyone, calm down." I've heard it before and I'll hear it again. I'm writing this anyway, because I think the reflex response skips past the actual point instead of answering it.</p>
-        <h3>The thought experiment</h3>
+        <h3 id="st-thought">The thought experiment</h3>
         <p>Here's the simplest way I can put what I feel. Think of someone you actually love — a partner, a close friend, someone real in your life, or even a fictional character you've grown attached to the way I have with these characters. Now imagine thousands, maybe millions, of strangers taking that person's image, their face, their personality, and using it however they personally want — sexually, degradingly, without their say in it at all.</p>
         <p>That discomfort you'd feel imagining that — that's the same thing I feel every time I scroll past this content on TikTok, Reddit, wherever it's turned up this week. It's not about being easily offended. It's that these characters were written with real intention, real voice, real emotional weight — and I've spent real time caring about who they are. Watching that get flattened into something to be used doesn't sit right with me, and I don't think it should have to.</p>
-        <h3>It's not just "they're not real"</h3>
+        <h3 id="st-real">It's not just "they're not real"</h3>
         <p>The usual counter is that fictional characters can't be harmed, so nothing here actually matters. I'd push back on that a little differently than most people do. It's not really about whether Sayori or Natsuki can feel anything — obviously they can't. It's about what the content says about how the people making and consuming it are choosing to treat a story that, for a lot of us, meant something real.</p>
         <p>DDLC's characters weren't built to be sexualized. If anything, the game goes out of its way to make you sit with how young, how vulnerable, and how human these characters are supposed to feel. Taking that and reshaping it into fetish content isn't some neutral act happening in a vacuum — it's actively working against what the writing was doing in the first place. That's the part that bothers me more than the fictional-status debate ever could.</p>
-        <h3>It's not only about this game</h3>
+        <h3 id="st-fandoms">It's not only about this game</h3>
         <p>I want to be clear that none of this stops at DDLC. This game is just where it lands closest, because it's the one I've spent the most years inside — but the same thing turns up with other games, with anime, with manga, with any story where someone sat down and put real care into a character. If the writing gave them a voice, a history and a reason to care, then nothing above changes because the title on the cover does.</p>
         <p>And I'm not drawing the line at "the characters I happen to like", either. Something gets popular, the people in it start getting treated like an inventory of parts, and whoever wrote them has no say in it — that's a pattern I've watched across fandoms long enough to know it never stays inside one of them. What bothers me isn't which game it is. It's the habit underneath, and the habit travels.</p>
-        <h3>What happened when I said something</h3>
+        <h3 id="st-cosplay">It turns up in cosplay too</h3>
+        <p>This isn't only about edits and fan art. DDLC cosplay on TikTok and the other platforms has the same problem, and I think it's worth saying out loud. Plenty of the people doing it clearly love the characters and put real work into a costume. Here's the part that bugs me: a lot of them seem to think the community is there for the character. It usually isn't.</p>
+        <p>You can see it in the comments. A post that isn't showing off the costume at all fills up with "Peak" and "Amazing cosplay" — nothing about accuracy, or the character, or the effort. It's about cleavage, and it's baiting engagement for views. And at the far end of it, some go straight past cosplay into actual adult content with the character's name attached to it.</p>
+        <p>It's the same issue as everything above, just on a different platform. These characters were written with real vulnerability and depth, and turning them into props for a thirst trap — whether someone meant to or just didn't stop to think about how the internet works — throws away the thing that made the game worth caring about in the first place.</p>
+
+        <h3 id="st-said">What happened when I said something</h3>
         <p>This stopped being hypothetical for me recently. In one of the biggest DDLC spaces online — a server plenty of people here would recognise — suggestive and lewd content gets posted and treated as nothing worth remarking on. So I said what I actually thought: that these characters get sexualized, reduced to fetishes, and stripped of the emotional weight their story gave them. I wasn't expecting everyone to agree. I was expecting a conversation.</p>
         <p>What I got instead was two kinds of shutdown. From the members, dismissal — "it's just the internet", "it's not that deep", "just don't look at it". From the staff, something worse: a moderator who never once addressed the content that started it, but was quick to warn me and threaten me with a ban for speaking about it. They told me to go and read the rules of the server they moderate. They weren't following them either.</p>
         <p>That's the part I keep coming back to. The rulebook existed. It just wasn't the thing being enforced. What was being enforced was the quiet — don't make the space feel uncomfortable for the people who want to use it that way.</p>
-        <h3>Why a lot of people won't understand this</h3>
+        <h3 id="st-understand">Why a lot of people won't understand this</h3>
         <p>Most of the people I'm describing will read this and feel nothing. Some will feel attacked. I don't think that's stubbornness. Spend enough time around this content and it stops being something you chose. It just becomes normal. It's what you open the app to. It's in the group chat. It's the joke everyone in the server already knows. After a while your brain files it under "apparently fine".</p>
         <p>So the people defending it aren't lying when they say they don't see a problem. They really don't. Their normal has moved, and from where they're standing nothing looks wrong about it. That's less like having a taste for something and more like being hooked on it.</p>
         <p>That's the hard part. When something already feels normal, "this isn't okay" doesn't land as an opinion you can argue with. It lands as an accusation. And the reflex is to make it go away. I'm not a doctor and I'm not diagnosing anyone from a distance. I just think it's worth saying plainly: a big part of why this is so hard to explain is that the people who most need it explained have been around it long enough that it can't bother them anymore.</p>
-        <h3>Why I hold the line on this</h3>
+        <h3 id="st-hold">Why I hold the line on this</h3>
         <p>I'm not interested in policing what strangers do in corners of the internet I'll never see. But in spaces I actually have a say over — communities I help build, servers I run — I'm not going to pretend this is a matter of taste I should stay neutral on. A fandom that lets this kind of content sit unchallenged ends up normalizing it for the next wave of newcomers, and I'd rather be the person saying something than the person who let it slide. Having actually done that now — in a space that big, in front of that many people — I can tell you it costs more than it looks like it should. I'd do it again.</p>
         <p>If you disagree, that's fine — you're allowed to. I'm not writing this expecting to change every mind. But I know I'm not the only person who loves this game and feels sick seeing what's done to its characters, and I wanted that put into words somewhere more permanent than a comment that'll get buried by tomorrow.</p>
         <p class="sign">— written out of genuine love for this game and its characters, not out of a wish to control anyone else's fandom.</p>
+        <p class="letter-foot"><a href="#statementLetter">↑ back to the top of this statement</a></p>
       </article>
     </details>
   </div>
@@ -1130,6 +1167,29 @@ the receipts. Everything else ends up in short clips.</p>
   }
 
   poemBtn.addEventListener("click", readPoem);
+
+  const statementFold = document.querySelector("details.statement");
+  function revealStatement(){
+    if (!statementFold) return;
+    const h = location.hash;
+    if (h !== "#statement" && !h.startsWith("#st-")) return;
+    statementFold.open = true;
+    const target = h.length > 1 ? document.getElementById(h.slice(1)) : null;
+    if (!target) return;
+
+    const nav = document.querySelector(".toc");
+    const offset = (nav ? nav.getBoundingClientRect().height : 0) + 16;
+    const y = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: Math.max(0, y), behavior: reduceMotion ? "auto" : "smooth" });
+  }
+  window.addEventListener("hashchange", revealStatement);
+  function initialReveal(){
+    revealStatement();
+    requestAnimationFrame(() => requestAnimationFrame(revealStatement));
+    setTimeout(revealStatement, 200);
+  }
+  if (document.readyState === "complete") initialReveal();
+  else window.addEventListener("load", initialReveal);
 
   document.addEventListener('error', (e) => {
     const img = e.target;
