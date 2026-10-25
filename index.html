@@ -837,7 +837,6 @@ the receipts. Everything else ends up in short clips.</p>
     ['localhost', '127.0.0.1', '0.0.0.0', '::1', ''].indexOf(location.hostname) > -1;
 
   function loadViewCount(){
-    // count.js knows the exact path it recorded; fall back to the URL if it hasn't loaded
     const ready = window.goatcounter && window.goatcounter.get_data;
     const path = ready ? window.goatcounter.get_data().p : location.pathname;
     fetch(GC_SITE + '/counter/' + encodeURIComponent(path) + '.json')
