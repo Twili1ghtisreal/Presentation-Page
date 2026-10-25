@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Why I Won't Look Away From This — Twilight.dev</title>
+<meta name="description" content="A personal statement on sexualized fan content of Doki Doki Literature Club characters, and of characters in games, anime and stories generally.">
+<meta name="theme-color" content="#faf2e6">
+
+<!-- Link previews. og:image needs an ABSOLUTE url once the site is live, e.g.
+     https://your-site.example/images/Monika.jpg  -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why I Won't Look Away From This">
+<meta property="og:description" content="A personal statement on sexualized fan content of Doki Doki Literature Club characters, and of characters in games, anime and stories generally.">
+<meta property="og:site_name" content="Twilight.dev">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Why I Won't Look Away From This">
+<meta name="twitter:description" content="A personal statement on sexualized fan content of Doki Doki Literature Club characters, and of characters in games, anime and stories generally.">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💚</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<script data-goatcounter="https://twil1ghtalt.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+
+<style>
+  :root{
+    --paper:#faf2e6; --paper-alt:#f5ecdd; --paper-line: rgba(201,56,102,.09); --panel:#fffdf9;
+    --ink:#2e1b22; --ink-soft:#7a5a66; --rose:#ef6d94; --rose-deep:#c93866; --gold:#d9a94f;
+    --lav:#a98fd1; --sage:#7fa088; --tape:#f3d9c9; --corrupt:#ff2b4e; --edge: rgba(46,27,34,.16);
+  }
+  [data-theme="dark"]{
+    --paper:#170e12; --paper-alt:#1c1116; --paper-line: rgba(239,109,148,.08); --panel:#221420;
+    --ink:#f3e3e9; --ink-soft:#b891a0; --rose:#ff8fb0; --rose-deep:#ff6e9d;
+    --gold:#e8c27a; --lav:#c3aee6; --sage:#93b89c; --tape:#3a2a2c; --corrupt:#ff4d6d; --edge: rgba(255,255,255,.14);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#170e12; --paper-alt:#1c1116; --paper-line: rgba(239,109,148,.08); --panel:#221420;
+      --ink:#f3e3e9; --ink-soft:#b891a0; --rose:#ff8fb0; --rose-deep:#ff6e9d;
+      --gold:#e8c27a; --lav:#c3aee6; --sage:#93b89c; --tape:#3a2a2c; --corrupt:#ff4d6d; --edge: rgba(255,255,255,.14);
+    }
+  }
+  :root[data-accent="green"]{
+    --paper:#edf6ee; --paper-alt:#e3f0e6; --paper-line: rgba(46,125,80,.10); --panel:#fbfefb;
+    --rose:#4caf7d; --rose-deep:#2e7d4f; --tape:#d7ebd9;
+  }
+  [data-theme="dark"][data-accent="green"]{
+    --paper:#0f1712; --paper-alt:#131d17; --paper-line: rgba(87,199,138,.08); --panel:#17221c;
+    --ink:#e2f2e8; --ink-soft:#8fb8a0; --rose:#5fcd90; --rose-deep:#8fe2b0; --tape:#24332a; --edge: rgba(255,255,255,.13);
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html{ scroll-behavior:smooth; scroll-padding-top:72px; }
+  body{
+    margin:0; color:var(--ink); font-family:'Space Mono', monospace; background:var(--paper);
+    padding-bottom: env(safe-area-inset-bottom,0px); overflow-x:hidden;
+  }
+  a{ color:inherit; }
+  ::selection{ background:var(--rose); color:#fff; }
+  .skip{ position:absolute; left:-999px; top:8px; background:var(--panel); border:1px solid var(--rose-deep); padding:8px 12px; z-index:50; font-size:.8rem; }
+  .skip:focus{ left:8px; }
+
+  /* top bar */
+  .bar{
+    position:sticky; top:0; z-index:20; border-bottom:1px solid var(--edge);
+    background: color-mix(in srgb, var(--paper) 90%, transparent); backdrop-filter: blur(6px);
+    padding-top: env(safe-area-inset-top,0px);
+  }
+  .bar-inner{ max-width:760px; margin:0 auto; padding:10px 22px; display:flex; align-items:center; gap:12px; }
+  .back{ font-size:.78rem; text-decoration:none; color:var(--rose-deep); border-bottom:1px dashed transparent; }
+  .back:hover, .back:focus-visible{ border-color:var(--rose-deep); }
+  .brand{ font-family:'Caveat', cursive; font-weight:700; font-size:1.25rem; color:var(--ink-soft); margin-left:auto; }
+  .icon-btn{ width:30px; height:30px; display:flex; align-items:center; justify-content:center; background:transparent;
+    border:1px solid var(--edge); color:var(--ink-soft); cursor:pointer; transition: color .15s ease, border-color .15s ease; }
+  .icon-btn:hover{ color:var(--rose-deep); border-color:var(--rose-deep); }
+  .icon-btn:focus-visible{ outline:2px solid var(--rose-deep); outline-offset:2px; }
+  .icon-btn svg{ width:14px; height:14px; }
+  .progress{ position:absolute; left:0; bottom:-1px; height:2px; width:0; background:var(--rose-deep); }
+
+  /* header */
+  .wrap{ max-width:760px; margin:0 auto; padding:0 22px; }
+  .head{ padding:56px 0 8px; }
+  .eyebrow{ font-size:.78rem; letter-spacing:.14em; color:var(--ink-soft); }
+  h1{ font-family:'Caveat', cursive; font-weight:700; font-size: clamp(2.4rem, 8vw, 3.8rem); line-height:1.02; margin:6px 0 14px; color:var(--lav); }
+  [data-accent="green"] h1{ color:var(--rose-deep); }
+  .lede{ font-size:.92rem; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; max-width:60ch; }
+  .meta{ font-size:.78rem; color:var(--ink-soft); display:flex; gap:14px; flex-wrap:wrap; }
+  .note{ margin:18px 0 0; padding:12px 14px; border:1px dashed var(--edge); background:var(--panel); font-size:.8rem; line-height:1.6; color:var(--ink-soft); }
+  .note b{ color:var(--rose-deep); letter-spacing:.06em; font-weight:700; }
+
+  /* letter */
+  .letter{ margin:26px 0 0; padding:34px 36px; background:var(--panel); border:1px solid var(--edge); position:relative; }
+  .letter::before{ content:""; position:absolute; inset:9px; border:1px dashed var(--edge); pointer-events:none; }
+  .letter h2{ font-family:'Caveat', cursive; font-weight:700; font-size:1.7rem; color:var(--lav); margin:34px 0 10px; scroll-margin-top:72px; }
+  [data-accent="green"] .letter h2{ color:var(--rose-deep); }
+  .letter h2:first-of-type{ margin-top:2px; }
+  .letter p{ font-size:.95rem; line-height:1.85; margin:0 0 16px; max-width:66ch; }
+  .letter a{ color:var(--rose-deep); text-decoration:none; border-bottom:1px dashed var(--edge); }
+  .letter a:hover{ border-color:var(--rose-deep); }
+  .letter .sign{ margin:28px 0 0; padding-top:16px; border-top:1px dashed var(--edge); font-family:'Caveat', cursive; font-size:1.3rem; line-height:1.5; color:var(--ink-soft); }
+
+  .toc{ margin:0 0 26px; padding:0 0 18px; border-bottom:1px dashed var(--edge); }
+  .toc-head{ font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:9px; }
+  .toc ol{ list-style:none; margin:0; padding:0; display:grid; gap:1px; }
+  .toc a{ display:flex; gap:10px; align-items:baseline; font-size:.82rem; line-height:1.45; color:var(--ink-soft); text-decoration:none;
+    padding:5px 8px; border-left:2px solid transparent; border-bottom:none; transition: color .15s ease, border-color .15s ease, background .15s ease; }
+  .toc a:hover, .toc a:focus-visible{ color:var(--ink); border-left-color:var(--rose-deep); background: color-mix(in srgb, var(--rose-deep) 9%, transparent); }
+  .toc .n{ font-size:.7rem; letter-spacing:.08em; color:var(--rose-deep); opacity:.85; }
+
+  .foot{ text-align:center; padding:44px 22px 56px; }
+  .foot .links{ display:flex; justify-content:center; gap:18px; flex-wrap:wrap; }
+  .foot a{ font-size:.78rem; color:var(--ink-soft); text-decoration:none; border-bottom:1px dashed var(--edge); }
+  .foot a:hover{ color:var(--rose-deep); border-color:var(--rose-deep); }
+  .foot .fine{ margin:22px 0 0; font-size:.72rem; color:var(--ink-soft); opacity:.75; }
+
+  @media (max-width:520px){ .letter{ padding:26px 18px; } .letter::before{ inset:6px; } .head{ padding-top:36px; } }
+  @media print{ .bar, .foot .links, .skip{ display:none; } .letter{ border:none; padding:0; } .letter::before{ display:none; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#statementLetter">Skip to the statement</a>
+
+<header class="bar">
+  <div class="bar-inner">
+    <a class="back" href="index.html#statement">← back to Twilight.dev</a>
+    <span class="brand">Twilight.dev</span>
+    <button class="icon-btn" id="themeToggle" type="button" aria-pressed="false" title="Toggle dark mode" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36A5.4 5.4 0 0 1 12 3z"/></svg>
+    </button>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>
+
+<main class="wrap">
+  <div class="head">
+    <div class="eyebrow">A personal statement</div>
+    <h1>Why I Won't Look Away From This</h1>
+    <p class="lede">On NSFW and sexualized content of the Doki Doki Literature Club characters — and, by the same argument, of characters in games, anime and stories generally.</p>
+    <div class="meta"><span id="readTime">~ 9 min read</span><span>by Twilight</span></div>
+    <p class="note"><b>CONTENT NOTE</b> · discusses sexualized fan content, cosplay, how it spreads across platforms and creators, and one hostile community response. Nothing explicit is shown here.</p>
+  </div>
+
+  <article class="letter" id="statementLetter">
+    <nav class="toc" aria-label="Contents of this statement">
+      <div class="toc-head">jump to a part of this</div>
+      <ol>
+        <li><a href="#st-origins"><span class="n">01</span>Where this comes from</a></li>
+        <li><a href="#st-thought"><span class="n">02</span>The thought experiment</a></li>
+        <li><a href="#st-real"><span class="n">03</span>It's not just "they're not real"</a></li>
+        <li><a href="#st-fandoms"><span class="n">04</span>It's not only about this game</a></li>
+        <li><a href="#st-cosplay"><span class="n">05</span>It turns up in cosplay too</a></li>
+        <li><a href="#st-everywhere"><span class="n">06</span>It's on every platform</a></li>
+        <li><a href="#st-said"><span class="n">07</span>What happened when I said something</a></li>
+        <li><a href="#st-mas"><span class="n">08</span>The Monika After Story community</a></li>
+        <li><a href="#st-understand"><span class="n">09</span>Why a lot of people won't understand this</a></li>
+        <li><a href="#st-hold"><span class="n">10</span>Why I hold the line on this</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="st-origins">Where this comes from</h2>
+    <p>I've put thousands of hours into Doki Doki Literature Club and everything that's grown around it — Monika After Story, the mods, the community projects. In that time I've come to genuinely love every character in this game. Not in some ironic, detached way — actual affection, the kind you'd have for people you've spent years getting to know. That's exactly why I can't stay quiet when I see what gets done to them online.</p>
+    <p>I know how this comes across to some people. I know the reflex response: "it's just fictional, it doesn't hurt anyone, calm down." I've heard it before and I'll hear it again. I'm writing this anyway, because I think the reflex response skips past the actual point instead of answering it.</p>
+
+    <h2 id="st-thought">The thought experiment</h2>
+    <p>Here's the simplest way I can put what I feel. Think of someone you actually love — a partner, a close friend, someone real in your life, or even a fictional character you've grown attached to the way I have with these characters. Now imagine thousands, maybe millions, of strangers taking that person's image, their face, their personality, and using it however they personally want — sexually, degradingly, without their say in it at all.</p>
+    <p>That discomfort you'd feel imagining that — that's the same thing I feel every time I scroll past this content on TikTok, Reddit, wherever it's turned up this week. It's not about being easily offended. It's that these characters were written with real intention, real voice, real emotional weight — and I've spent real time caring about who they are. Watching that get flattened into something to be used doesn't sit right with me, and I don't think it should have to.</p>
+
+    <h2 id="st-real">It's not just "they're not real"</h2>
+    <p>The usual counter is that fictional characters can't be harmed, so nothing here actually matters. I'd push back on that a little differently than most people do. It's not really about whether Sayori or Natsuki can feel anything — obviously they can't. It's about what the content says about how the people making and consuming it are choosing to treat a story that, for a lot of us, meant something real.</p>
+    <p>DDLC's characters weren't built to be sexualized. If anything, the game goes out of its way to make you sit with how young, how vulnerable, and how human these characters are supposed to feel. Taking that and reshaping it into fetish content isn't some neutral act happening in a vacuum — it's actively working against what the writing was doing in the first place. That's the part that bothers me more than the fictional-status debate ever could.</p>
+
+    <h2 id="st-fandoms">It's not only about this game</h2>
+    <p>I want to be clear that none of this stops at DDLC. This game is just where it lands closest, because it's the one I've spent the most years inside — but the same thing turns up with other games, with anime, with manga, with any story where someone sat down and put real care into a character. If the writing gave them a voice, a history and a reason to care, then nothing above changes because the title on the cover does.</p>
+    <p>And I'm not drawing the line at "the characters I happen to like", either. Something gets popular, the people in it start getting treated like an inventory of parts, and whoever wrote them has no say in it — that's a pattern I've watched across fandoms long enough to know it never stays inside one of them. What bothers me isn't which game it is. It's the habit underneath, and the habit travels.</p>
+
+    <h2 id="st-cosplay">It turns up in cosplay too</h2>
+    <p>This isn't only about edits and fan art. DDLC cosplay on TikTok and the other platforms has the same problem, and I think it's worth saying out loud. Plenty of the people doing it clearly love the characters and put real work into a costume. Here's the part that bugs me: a lot of them seem to think the community is there for the character. It usually isn't.</p>
+    <p>You can see it in the comments. A post that isn't showing off the costume at all fills up with "Peak" and "Amazing cosplay" — nothing about accuracy, or the character, or the effort. It's about cleavage, and it's baiting engagement for views. And at the far end of it, some go straight past cosplay into actual adult content with the character's name attached to it.</p>
+    <p>It's the same issue as everything above, just on a different platform. These characters were written with real vulnerability and depth, and turning them into props for a thirst trap — whether someone meant to or just didn't stop to think about how the internet works — throws away the thing that made the game worth caring about in the first place.</p>
+
+    <h2 id="st-everywhere">It's on every platform</h2>
+    <p>None of this lives in one corner of the internet. I see it on X, on Reddit, in Discord servers, on TikTok, and even on YouTube, where it's wrapped in thumbnails and titles that are built to be clicked. Different platform, same pattern: the lewd edit or the suggestive post goes up, it gets the engagement, and it gets treated as just another piece of the fandom.</p>
+    <p>There's a quieter version of it too. Plenty of posts don't contain anything explicit themselves; they point toward it. A "check out this artist" post, a repost with the artist tagged, a link in a bio, a recommendation thread. A big one is sharing art from X: the piece itself looks harmless, but the account it comes from is tied to lewd or NSFW content, and the post sends people straight to it. Some of those artists draw wholesome work, and I have no problem with that. But a lot of them are best known for NSFW art of these characters, and sharing their work or sending people their way does the same job as posting the content directly. It's how the stuff reaches people who never went looking for it.</p>
+    <p>And it isn't just small accounts. I've seen it from bigger content creators too, people with anywhere from 10k to 300k subscribers, who post or feature this kind of art, or art from accounts connected to it, in front of audiences that size. That matters more than a random post does. A creator that big has a community that trusts them and often a lot of younger viewers, so when they put it on screen, it tells all of those people it's normal and shows them where to find more. I'd expect more care from someone with that much reach, not less.</p>
+    <p>I'm not naming anyone here, and this isn't about picking on individual artists. It's about the way it spreads: one platform's "safe" post becomes another platform's way in. When it's everywhere, it stops reading as a few people's taste and starts reading as the default, and that's exactly how it ends up in front of the next newcomer who just wanted to talk about the game.</p>
+
+    <h2 id="st-said">What happened when I said something</h2>
+    <p>This stopped being hypothetical for me recently. In one of the biggest DDLC spaces online — a server plenty of people here would recognise — suggestive and lewd content gets posted and treated as nothing worth remarking on. So I said what I actually thought: that these characters get sexualized, reduced to fetishes, and stripped of the emotional weight their story gave them. I wasn't expecting everyone to agree. I was expecting a conversation.</p>
+    <p>What I got instead was two kinds of shutdown. From the members, dismissal — "it's just the internet", "it's not that deep", "just don't look at it". From the staff, something worse: a moderator who never once addressed the content that started it, but was quick to warn me and threaten me with a ban for speaking about it. They told me to go and read the rules of the server they moderate. They weren't following them either.</p>
+    <p>That's the part I keep coming back to. The rulebook existed. It just wasn't the thing being enforced. What was being enforced was the quiet — don't make the space feel uncomfortable for the people who want to use it that way.</p>
+
+    <h2 id="st-mas">The Monika After Story community</h2>
+    <p>Monika After Story is the part of this fandom I've given the most time to, which is why this one is hard to write. The main MAS Discord server has around 22K members — "around" because the number moves, and that's roughly what it was when I wrote this. In my experience, a lot of the people in that community are rude, and it gets worse the moment this subject comes up. You don't get a conversation. You get brushed off, snapped at, or treated as the problem for noticing. I've written about it in more detail <a href="https://www.reddit.com/user/PrincessTwil1ght/comments/1wz25u4/monika_after_story_is_the_most_disgusting_discord/" target="_blank" rel="noopener">in a post on Reddit</a>.</p>
+    <p>There's also a server called NSFW MAS Server, with roughly 5k members. I don't know whether it's officially affiliated with the main MAS server, and I'm not claiming it is. I'm not going to link it either. But it's built entirely around the same project and the same character, and from the outside it reads as part of the same fandom. A community that size, organised around sexual content of Monika, tells every newcomer who finds it that this is just one more normal corner of MAS.</p>
+    <p>I'm naming servers here, not people. This isn't about any one member. It's that a community this big, around a project this wholesome in its origins, can end up being known for how it treats the people who ask for a bit of care.</p>
+
+    <h2 id="st-understand">Why a lot of people won't understand this</h2>
+    <p>Most of the people I'm describing will read this and feel nothing. Some will feel attacked. I don't think that's stubbornness. Spend enough time around this content and it stops being something you chose. It just becomes normal. It's what you open the app to. It's in the group chat. It's the joke everyone in the server already knows. After a while your brain files it under "apparently fine".</p>
+    <p>So the people defending it aren't lying when they say they don't see a problem. They really don't. Their normal has moved, and from where they're standing nothing looks wrong about it. That's less like having a taste for something and more like being hooked on it.</p>
+    <p>That's the hard part. When something already feels normal, "this isn't okay" doesn't land as an opinion you can argue with. It lands as an accusation. And the reflex is to make it go away. I'm not a doctor and I'm not diagnosing anyone from a distance. I just think it's worth saying plainly: a big part of why this is so hard to explain is that the people who most need it explained have been around it long enough that it can't bother them anymore.</p>
+
+    <h2 id="st-hold">Why I hold the line on this</h2>
+    <p>I'm not interested in policing what strangers do in corners of the internet I'll never see. But in spaces I actually have a say over — communities I help build, servers I run — I'm not going to pretend this is a matter of taste I should stay neutral on. A fandom that lets this kind of content sit unchallenged ends up normalizing it for the next wave of newcomers, and I'd rather be the person saying something than the person who let it slide. Having actually done that now — in a space that big, in front of that many people — I can tell you it costs more than it looks like it should. I'd do it again.</p>
+    <p>If you disagree, that's fine — you're allowed to. I'm not writing this expecting to change every mind. But I know I'm not the only person who loves this game and feels sick seeing what's done to its characters, and I wanted that put into words somewhere more permanent than a comment that'll get buried by tomorrow.</p>
+    <p class="sign">— written out of genuine love for this game and its characters, not out of a wish to control anyone else's fandom.</p>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="links">
+    <a href="index.html#statement">← back to Twilight.dev</a>
+    <a href="#statementLetter">↑ top of this statement</a>
+  </div>
+  <p class="fine">visits counted with goatcounter · no cookies, no personal data</p>
+</footer>
+
+<script>
+  // theme + accent: share the homepage's saved choices
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeToggle');
+  function applyTheme(t){
+    if (t) root.setAttribute('data-theme', t); else root.removeAttribute('data-theme');
+    const dark = t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches);
+    themeBtn.setAttribute('aria-pressed', String(dark));
+  }
+  let savedTheme = null, savedAccent = null;
+  try { savedTheme = localStorage.getItem('ddlc-theme'); savedAccent = localStorage.getItem('ddlc-accent'); } catch(e){}
+  applyTheme(savedTheme);
+  if (savedAccent === 'green') root.setAttribute('data-accent', 'green');
+  themeBtn.addEventListener('click', () => {
+    const dark = root.getAttribute('data-theme') === 'dark' ||
+      (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    const next = dark ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('ddlc-theme', next); } catch(e){}
+  });
+
+  // reading time (~200 wpm) from the actual text
+  const words = document.getElementById('statementLetter').innerText.trim().split(/\s+/).length;
+  document.getElementById('readTime').textContent = '~ ' + Math.max(1, Math.round(words / 200)) + ' min read';
+
+  // reading progress bar
+  const prog = document.getElementById('progress');
+  function onScroll(){
+    const max = document.documentElement.scrollHeight - innerHeight;
+    prog.style.width = (max > 0 ? Math.min(100, (scrollY / max) * 100) : 0) + '%';
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  onScroll();
+</script>
+</body>
+</html>
