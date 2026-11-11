@@ -186,6 +186,14 @@
   .card .foot{ display:flex; justify-content:space-between; align-items:center; font-size:.68rem; color:var(--ink-soft); margin-top:4px; }
   .card .foot .dot{ display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--accent, var(--rose)); margin-right:5px; }
 
+  .ainote{ margin-top:26px; padding:24px 26px; background:var(--panel); border:1px solid var(--edge); position:relative; }
+  .ainote::before{ content:""; position:absolute; inset:7px; border:1px dashed var(--edge); pointer-events:none; }
+  .ainote h3{ font-family:'Caveat', cursive; font-weight:700; font-size:1.6rem; color:var(--rose-deep); margin:0 0 10px; }
+  .ainote p{ font-size:.82rem; line-height:1.75; margin:0 0 12px; max-width:64ch; }
+  .ainote p:last-child{ margin-bottom:0; }
+  .ainote a{ color:var(--rose-deep); text-decoration:none; border-bottom:1px dashed var(--edge); }
+  .ainote a:hover{ border-color:var(--rose-deep); }
+
   .modtag{ display:inline-block; font-size:.62rem; letter-spacing:.04em; border:1px solid var(--edge); padding:2px 6px; color:var(--ink-soft); margin-right:5px; }
 
   .statstrip{ display:flex; flex-wrap:wrap; gap:0; border:1px solid var(--edge); background:var(--panel); margin-bottom:26px; }
@@ -408,6 +416,12 @@ the receipts. Everything else ends up in short clips.</p>
           <div class="foot"><span><span class="dot"></span>u/PrincessTwil1ght</span><span>open →</span></div>
         </div>
       </a>
+    </div>
+    <div class="ainote" id="why-ai">
+      <h3>Why my TikTok posts use AI</h3>
+      <p>Most of my TikTok posts use AI-made visuals instead of existing fan art. It's a deliberate choice, and I'd rather explain it than leave people guessing.</p>
+      <p>The reason is the same one behind <a href="statement.html">my statement</a>. A lot of fan art of these characters comes from accounts that are mixed up with sexualized content. Even when one piece is harmless, crediting, tagging or linking the artist sends my viewers to a profile I can't vouch for, and plenty of those viewers are young. I can't check every artist's whole feed before every post, so I make the visuals myself instead of risking it.</p>
+      <p>This isn't a knock on artists. Plenty of them draw wholesome work, and I know people have real concerns about AI art, which I take seriously. It's simply the safest option I've found for my own posts, not a claim that it's better than their work. The mods, the catches and the links are still mine.</p>
     </div>
   </div>
 </section>
